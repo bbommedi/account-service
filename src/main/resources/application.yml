@@ -1,0 +1,65 @@
+server:
+  port: 8081
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+      
+spring:
+  application:
+    name: account-service
+
+  boot:
+    admin:
+      client:
+        url: http://admin-server:9099
+        instance:
+          prefer-ip: true
+
+  datasource:
+    url: jdbc:h2:mem:accountdb;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: kafka:9092
+
+    # ---------- Producer ----------
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 3
+      properties:
+        enable.idempotence: true
+
+    # ---------- Consumer ----------
+    consumer:
+      group-id: ${spring.application.name}
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.example.common.kafka.events"
+        allow.auto.create.topics: true
+
+    # ---------- Listener (optional tuning) ----------
+    listener:
+      ack-mode: record       # process one message at a time
+      missing-topics-fatal: false
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,refresh,restart
+  endpoint:
+    health:
+      show-details: when_authorized
