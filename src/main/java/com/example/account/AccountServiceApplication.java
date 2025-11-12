@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 	    "com.example.account",
 	    "com.example.common"
 	})
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 //@Import(KafkaCommonConfig.class)
 public class AccountServiceApplication {
     public static void main(String[] args) {
