@@ -29,7 +29,7 @@ spring:
     show-sql: true
 
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: ip-10-0-87-9.ec2.internal:9092
 
     # ---------- Producer ----------
     producer:
