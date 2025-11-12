@@ -72,12 +72,12 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- Eureka client -->
+    <!-- Eureka client 
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
     </dependency>
-
+-->
     <!-- Spring Boot Admin client -->
     <dependency>
       <groupId>de.codecentric</groupId>
